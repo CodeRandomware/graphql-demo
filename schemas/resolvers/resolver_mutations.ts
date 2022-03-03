@@ -16,11 +16,7 @@ export const mutations_resolver = {
       { input }: CreateProduct,
       context: ContextType
     ) {
-      if (context.isAuth) {
-        return addProduct(input);
-      } else {
-        throw new ApolloError("Invalid Token", "INVALID_TOKEN");
-      }
+     return addProduct(input, context.user);
     },
   },
   Authentication: {
