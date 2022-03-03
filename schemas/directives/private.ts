@@ -1,6 +1,8 @@
 import { mapSchema, getDirective, MapperKind } from "@graphql-tools/utils";
+import { ApolloError } from "apollo-server-core";
 import { GraphQLSchema, defaultFieldResolver } from "graphql";
 import { verify } from "jsonwebtoken";
+import { checkID } from "../functions/get";
 
 export function privateDirectiveTransformer(
   schema: GraphQLSchema,
@@ -15,21 +17,16 @@ export function privateDirectiveTransformer(
       )?.[0];
       if (privateDirective) {
         const { resolve = defaultFieldResolver } = fieldConfig;
+        let result: unknown;
 
         fieldConfig.resolve = async function (source, args, context, info) {
           const userInfo: any = verify(context.bearer, "RANDOM_STRING");
-          Object.defineProperty(args.input, "id", {
-            value: null,
-            writable: true,
-            enumerable: true,
-          });
 
-          if (userInfo) {
-            context.isAuth = true;
-            args.input.id = userInfo.user_id;
+          if (userInfo && (context.user = await checkID(userInfo.user_id))) {
+            result = await resolve(source, args, context, info);
+          } else {
+            throw new ApolloError("Invalid Token", "INVALID_TOKEN");
           }
-
-          const result = await resolve(source, args, context, info);
 
           return result;
         };
