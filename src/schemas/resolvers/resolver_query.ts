@@ -1,9 +1,12 @@
 import { checkID, getAccount } from "../functions/get";
-import { Product } from "../functions/producttypes";
+import { ContextType, Product } from "../functions/producttypes";
 import { ID } from "../functions/usertypes";
 
 export const queries_resolver = {
   Query: {
+    me: async (_: undefined, __: undefined, { user }: ContextType) => {
+      return user;
+    },
     node: async (_: undefined, { id }: ID) => {
       return checkID(id);
     },

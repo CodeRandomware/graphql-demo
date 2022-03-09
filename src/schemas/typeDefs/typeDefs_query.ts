@@ -7,5 +7,6 @@ export const query_typeDefs = gql`
     account(id: Binary!): Account
     product(id: Binary!): Product
     node(id: Binary!): Node!
+    me: Account! @private
   }
 `;
