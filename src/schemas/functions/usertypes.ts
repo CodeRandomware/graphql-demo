@@ -13,3 +13,18 @@ export type CreateUser = {
     password: string;
   };
 };
+
+export type ID = {
+  id: Buffer;
+};
+
+export type User = {
+  result: {
+    id: Buffer;
+    firstname: string;
+    lastname: string;
+    emailAddress: string;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+};

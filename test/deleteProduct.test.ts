@@ -7,7 +7,7 @@ import { main, close } from "../src/db";
 import {
   deleteProductDataSuccess,
   deleteProductDataFail_notFound,
-  deleteProductDataFail_cannotUpdate,
+  deleteProductDataFail_cannotDelete,
   Invalid_Data,
   headerSuccess,
   headerFail,
@@ -79,7 +79,7 @@ describe("Testing Delete Product Mutation.", function () {
     request(testServer.url)
       .post(testServer.server.graphqlPath)
       .set(headerSuccess)
-      .send(deleteProductDataFail_cannotUpdate)
+      .send(deleteProductDataFail_cannotDelete)
       .then(function (res) {
         expect(JSON.parse(res.text).errors[0].message).to.equal(
           "Cannot delete product."

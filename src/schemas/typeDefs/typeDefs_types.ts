@@ -22,4 +22,19 @@ export const types_typeDefs = gql`
   type Authentication {
     token: String!
   }
+
+  type ProductConnection {
+    edges: [ProductEdge!]!
+    pageInfo: PageInfo!
+  }
+
+  type PageInfo {
+    hasNextPage: Boolean!
+    endCursor: Cursor
+  }
+
+  type ProductEdge {
+    cursor: Cursor!
+    node: Product!
+  }
 `;

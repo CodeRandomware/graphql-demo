@@ -6,7 +6,7 @@ import { startApolloServer } from "../src/app";
 import { main, close } from "../src/db";
 import {
   createProductDataSuccess,
-  createProductDataFail,
+  Invalid_Data,
   headerSuccess,
   headerFail,
 } from "./query_fields";
@@ -38,7 +38,7 @@ describe("Testing Create Product Mutation.", function () {
       });
   });
 
-  it("Success: Returns a Product.", function (done) {
+  it("Success: Returns the Created Product.", function (done) {
     request(testServer.url)
       .post(testServer.server.graphqlPath)
       .set(headerSuccess)
@@ -75,7 +75,7 @@ describe("Testing Create Product Mutation.", function () {
     request(testServer.url)
       .post(testServer.server.graphqlPath)
       .set(headerSuccess)
-      .send(createProductDataFail)
+      .send(Invalid_Data)
       .then(function (res) {
         expect(JSON.parse(res.text).errors).to.not.be.empty;
         expect(JSON.parse(res.text).data).to.equal(undefined);

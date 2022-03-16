@@ -48,7 +48,7 @@ async function getUserInfo(user: CreateUser["input"]) {
   const id = getID("account");
   const hashedPassword = await bycrypt.hash(user.password, 10);
   const email = user.emailAddress;
-  const token = issueToken(id, email);
+  const token = await issueToken(id, email);
 
   return { id, email, hashedPassword, token };
 }

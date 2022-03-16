@@ -29,14 +29,14 @@ export const mutations_resolver = {
       { input }: UpdateProduct,
       context: ContextType
     ) {
-      return update_Product(input, context.user.id);
+      return update_Product(input, Buffer.from(context.user.id));
     },
     deleteProduct(
       _: undefined,
       { input }: DeleteProduct,
       context: ContextType
     ) {
-      return delete_Product(input.id, context.user.id);
+      return delete_Product(input.id, Buffer.from(context.user.id));
     },
   },
 

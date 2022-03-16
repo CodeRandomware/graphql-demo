@@ -7,7 +7,7 @@ import { main, close } from "../src/db";
 import {
   mutationDataSuccess,
   mutationDataFail,
-  mutationDataInvalid,
+  Invalid_Data,
 } from "./query_fields";
 
 describe("Testing authenticate mutation.", function () {
@@ -70,7 +70,7 @@ describe("Testing authenticate mutation.", function () {
   it("Fail: Invalid Query.", function (done) {
     request(testServer.url)
       .post(testServer.server.graphqlPath)
-      .send(mutationDataInvalid)
+      .send(Invalid_Data)
       .then(function (res) {
         expect(JSON.parse(res.text).errors).to.not.be.empty;
         expect(JSON.parse(res.text).errors[0].extensions.code).to.equal(

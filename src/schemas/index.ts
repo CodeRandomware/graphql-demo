@@ -2,6 +2,7 @@ import { gql } from "apollo-server-koa";
 import { mutations_resolver } from "./resolvers/resolver_mutations";
 import { queries_resolver } from "./resolvers/resolver_query";
 import { binaryScalar } from "./scalars/binary";
+import { cursorScalar } from "./scalars/cursor";
 import { dateTimeScalar } from "./scalars/datetime";
 import { emailAddScalar } from "./scalars/emailadd";
 import { inputs_typeDefs } from "./typeDefs/typeDefs_inputs";
@@ -13,6 +14,7 @@ const rootDef = gql`
   scalar Binary
   scalar EmailAddress
   scalar DateTime
+  scalar Cursor
 
   directive @private on OBJECT | FIELD_DEFINITION
 
@@ -34,6 +36,7 @@ export const resolvers = {
   Binary: binaryScalar,
   EmailAddress: emailAddScalar,
   DateTime: dateTimeScalar,
+  Cursor: cursorScalar,
 
   ...queries_resolver,
 

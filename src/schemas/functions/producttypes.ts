@@ -1,3 +1,5 @@
+import { User } from "./usertypes";
+
 export type CreateProduct = {
   input: {
     name: string;
@@ -7,7 +9,7 @@ export type CreateProduct = {
 
 export type ContextType = {
   bearer: string;
-  user: any;
+  user: User["result"];
 };
 
 export type UpdateProduct = {
@@ -17,5 +19,23 @@ export type UpdateProduct = {
       name: string;
       description: string;
     };
+  };
+};
+
+export type DeleteProduct = {
+  input: {
+    id: Buffer;
+  };
+};
+
+export type Product = {
+  result: {
+    _id: { data: any };
+    id: Buffer;
+    name: string;
+    description: string;
+    owner: Buffer;
+    createdAt: Date;
+    updatedAt: Date;
   };
 };

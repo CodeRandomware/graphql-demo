@@ -1,4 +1,4 @@
-import { checkID, getAccount } from "../functions/get";
+import { checkID, getAccount, getPaginatedProducts } from "../functions/get";
 import { ContextType, Product } from "../functions/producttypes";
 import { ID } from "../functions/usertypes";
 
@@ -9,6 +9,9 @@ export const queries_resolver = {
     },
     node: async (_: undefined, { id }: ID) => {
       return checkID(id);
+    },
+    products: async (_: undefined, args: any) => {
+      return getPaginatedProducts(args);
     },
   },
 
@@ -25,6 +28,9 @@ export const queries_resolver = {
   },
 
   Product: {
+    id: async (product: Product["result"]) => {
+      return product.id || Buffer.from(product._id.data).toString();
+    },
     owner: async ({ owner }: Product["result"]) => {
       return getAccount(owner);
     },
